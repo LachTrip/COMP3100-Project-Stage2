@@ -64,11 +64,12 @@ public class MyClient {
 	}
 
 	public static void doJobn() throws IOException{
-		allToLargest();
+		Job job = new Job(reader);
+		Server forUse = allToLargest();
+		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
 	}
 
-	public static void allToLargest() throws IOException{
-		Job job = new Job(reader);
+	public static Server allToLargest() throws IOException{
 		send("GETS All");
 		int serverNum = Integer.parseInt(reader.nextEntry());
 		send("OK");
@@ -98,12 +99,11 @@ public class MyClient {
 
 		}
 		send("OK");
-
-		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
+		return forUse;
 	}
 
-	public static void allToSmallest() throws IOException{
-		Job job = new Job(reader);
+	public static Server allToSmallest(Job job) throws IOException{
+		
 		send("GETS Capable " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
 		int serverNum = Integer.parseInt(reader.nextEntry());
 		send("OK");
@@ -131,7 +131,6 @@ public class MyClient {
 		}
 
 		send("OK");
-
-		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
+		return forUse;
 	}
 }
