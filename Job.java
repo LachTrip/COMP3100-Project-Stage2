@@ -1,7 +1,7 @@
 public class Job {
 
     private int submitTime;
-    private int jobID;
+    private int ID;
     private int estRunTime;
     private int core;
     private int memory;
@@ -12,7 +12,7 @@ public class Job {
 
     public Job(Reader reader){
         submitTime = Integer.parseInt(reader.nextEntry());
-        jobID = Integer.parseInt(reader.nextEntry());
+        ID = Integer.parseInt(reader.nextEntry());
         estRunTime = Integer.parseInt(reader.nextEntry());
         core = Integer.parseInt(reader.nextEntry());
         memory = Integer.parseInt(reader.nextEntry());
@@ -23,8 +23,8 @@ public class Job {
         return submitTime;
     }
 
-    public int getJobID(){
-        return jobID;
+    public int getID(){
+        return ID;
     }
 
     public int getEstRunTime(){

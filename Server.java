@@ -2,8 +2,8 @@ import java.io.IOException;
 
 public class Server {
     
-    private String serverType;
-    private int serverID;
+    private String type;
+    private int ID;
     private String state;
     private int curStartTime;
     private int core;
@@ -15,8 +15,8 @@ public class Server {
     }
 
     public Server(Reader reader) throws IOException{
-        serverType = reader.nextLine();
-        serverID = Integer.parseInt(reader.nextEntry());
+        type = reader.getCurrent();
+        ID = Integer.parseInt(reader.nextEntry());
         state = reader.nextEntry();
         curStartTime = Integer.parseInt(reader.nextEntry());
         core = Integer.parseInt(reader.nextEntry());
@@ -24,19 +24,19 @@ public class Server {
         disk = Integer.parseInt(reader.nextEntry());
     }
 
-    public String getServerType(){
-        return serverType;
+    public String getType(){
+        return type;
     }
 
-    public int getServerID(){
-        return serverID;
+    public int getID(){
+        return ID;
     }
 
     public String getState(){
         return state;
     }
 
-    public int getcurStartTime(){
+    public int getCurStartTime(){
         return curStartTime;
     }
 

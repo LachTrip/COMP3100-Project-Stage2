@@ -13,29 +13,29 @@ public class Reader {
 
     public Reader(Socket s) throws IOException{
         din = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        line = din.readLine();
-        scan = new Scanner(line);
-        scan.useDelimiter(" ");
-        nextEntry();
     }
 
     public String nextLine() throws IOException{
         line = din.readLine();
         scan = new Scanner(line);
+        scan.useDelimiter(" ");
         return nextEntry();
-    }
-
-    public boolean says(String string){
-        return current.equals(string);
     }
 
     public String nextEntry(){
         current = scan.next();
-        System.out.println("S: " + current);
         return current;
     }
 
     public String getCurrent(){
         return current;
+    }
+
+    public String getLine(){
+        return line;
+    }
+
+    public boolean says(String string){
+        return current.equals(string);
     }
 }
