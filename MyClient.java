@@ -1,8 +1,8 @@
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+// import java.util.ArrayList;
+// import java.util.List;
 
 public class MyClient {
 
@@ -65,72 +65,8 @@ public class MyClient {
 
 	public static void doJobn() throws IOException{
 		Job job = new Job(reader);
-		Server forUse = allToLargest();
+		Algorithm a = new Algorithm();
+		Server forUse = a.allToSmallest(job);
 		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
-	}
-
-	public static Server allToLargest() throws IOException{
-		send("GETS All");
-		int serverNum = Integer.parseInt(reader.nextEntry());
-		send("OK");
-
-		List<Server> servers = new ArrayList<Server>();
-		for (int i = 0; i < serverNum; i++){
-			Server server = new Server(reader);
-			servers.add(server);
-			if(i != serverNum - 1){
-				reader.nextLine();
-			}
-		}
-
-		Server forUse = new Server();
-		Server next = new Server();
-		boolean forUseEmpty = true;
-		for (Server s : servers){
-			if (forUseEmpty){
-				forUse = s;
-				forUseEmpty = false;
-			} else {
-				next = s;
-				if (forUse.getCore() < next.getCore()){
-					forUse = next;
-				}
-			}
-
-		}
-		send("OK");
-		return forUse;
-	}
-
-	public static Server allToSmallest(Job job) throws IOException{
-		
-		send("GETS Capable " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
-		int serverNum = Integer.parseInt(reader.nextEntry());
-		send("OK");
-
-		List<Server> servers = new ArrayList<Server>();
-		for (int i = 0; i < serverNum; i++){
-			Server server = new Server(reader);
-			servers.add(server);
-			if(i != serverNum - 1){
-				reader.nextLine();
-			}
-		}
-
-		debug("SO CLOSE");
-
-		Server forUse = new Server();
-		boolean done = false;
-		for (Server s : servers){
-			if(!done){
-				if(s.getState().equals("inactive") || s.getState().equals("idle")){
-					forUse = s;
-					done = true;
-				}
-			}
-		}
-
-		send("OK");
-		return forUse;
 	}
 }
