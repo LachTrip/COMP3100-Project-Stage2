@@ -11,7 +11,13 @@ public class Server {
     private int disk;
 
     public Server(){
-
+        type = "empty";
+        ID = -1;
+        state = "empty";
+        curStartTime = -1;
+        core = -1;
+        memory = -1;
+        disk = -1;
     }
 
     public Server(Reader reader) throws IOException{

@@ -7,9 +7,6 @@ public class Job {
     private int memory;
     private int disk;
 
-    public Job(){
-    }
-
     public Job(Reader reader){
         submitTime = Integer.parseInt(reader.nextEntry());
         ID = Integer.parseInt(reader.nextEntry());
