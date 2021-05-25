@@ -20,7 +20,7 @@ public class MyClient {
 			dout = new DataOutputStream(s.getOutputStream());
 			reader = new Reader(s);
 			handshake();
-			System.out.println("# Handshake successful");
+			// System.out.println("# Handshake successful");
 			while(!reader.says("QUIT")){
 				nextEvent();
 			}
@@ -35,9 +35,9 @@ public class MyClient {
 	// format and send message to ds-server
 	public static void send(String message) throws IOException {
 		dout.write((message + "\n").getBytes());
-		System.out.println("SENT " + message);
+		// System.out.println("SENT " + message);
 		reader.nextLine();
-		System.out.println("RCVD " + reader.getLine());
+		// System.out.println("RCVD " + reader.getLine());
 	}
 
 	// Handshake Protocol
@@ -68,7 +68,7 @@ public class MyClient {
 	public static void doJobn() throws IOException{
 		Job job = new Job(reader);
 		Algorithm a = new Algorithm();
-		Server forUse = a.allToLargest();
+		Server forUse = a.allToSmallest(job);
 		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
 	}
 }
