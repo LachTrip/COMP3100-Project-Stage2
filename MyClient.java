@@ -46,6 +46,7 @@ public class MyClient {
 		send("AUTH " + System.getProperty("user.name"));
 	}
 
+	// choose what to do based on response from server
 	public static void nextEvent() throws IOException {
 		send("REDY");
 		if (reader.says("JOBN")){
@@ -63,10 +64,11 @@ public class MyClient {
 		}
 	}
 
+	// recieved JOBN from server
 	public static void doJobn() throws IOException{
 		Job job = new Job(reader);
 		Algorithm a = new Algorithm();
-		Server forUse = a.allToSmallest(job);
+		Server forUse = a.allToLargest();
 		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
 	}
 }

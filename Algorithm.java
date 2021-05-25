@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Algorithm {
     
-private Reader reader = MyClient.reader;
+	private Reader reader = MyClient.reader;
 
 	private void send(String msg) throws IOException{
 		MyClient.send(msg);
