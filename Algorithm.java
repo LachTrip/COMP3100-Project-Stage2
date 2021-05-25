@@ -70,7 +70,7 @@ public class Algorithm {
 		}
 		for (Server s : servers){
 			next = s;
-			if ((forUse.getWJobs() + forUse.getRJobs() > 5) && forUse.getWJobs() + forUse.getRJobs() > next.getWJobs() + next.getRJobs()){
+			if ((forUse.getWJobs() + forUse.getRJobs() > 8) && forUse.getWJobs() + forUse.getRJobs() > next.getWJobs() + next.getRJobs()){
 				forUse = next;
 			}
 		}
