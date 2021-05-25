@@ -106,11 +106,10 @@ public class Algorithm {
 				forUse = s;
 			} else {
 				next = s;
-				if (forUse.getCore() <= next.getCore() && forUse.getWJobs() > next.getWJobs()){
+				if ((forUse.getCore() > next.getCore()) || forUse.getCore() == next.getCore() && ((forUse.getWJobs() + forUse.getRJobs()) > (next.getWJobs() + next.getRJobs()))){
 					forUse = next;
 				}
 			}
-
 		}
 		send("OK");
 		return forUse;
