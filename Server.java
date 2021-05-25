@@ -9,6 +9,8 @@ public class Server {
     private int core;
     private int memory;
     private int disk;
+    private int waitingJobs;
+    private int runningJobs;
 
     public Server(){
         type = "empty";
@@ -28,6 +30,8 @@ public class Server {
         core = Integer.parseInt(reader.nextEntry());
         memory = Integer.parseInt(reader.nextEntry());
         disk = Integer.parseInt(reader.nextEntry());
+        waitingJobs = Integer.parseInt(reader.nextEntry());
+        runningJobs = Integer.parseInt(reader.nextEntry());
     }
 
     public String getType(){
@@ -56,5 +60,13 @@ public class Server {
 
     public int getDisk(){
         return disk;
+    }
+
+    public int getWJobs(){
+        return waitingJobs;
+    }
+
+    public int getRJobs(){
+        return runningJobs;
     }
 }
