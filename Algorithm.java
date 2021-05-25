@@ -62,9 +62,16 @@ public class Algorithm {
 				forUse = s;
 			} else {
 				next = s;
-				if ((forUse.getCore() > next.getCore()) || forUse.getCore() == next.getCore() && ((forUse.getWJobs() + forUse.getRJobs()) > (next.getWJobs() + next.getRJobs()))){
+				if (forUse.getCore() > next.getCore()){
+				// if ((forUse.getCore() > next.getCore()) || forUse.getCore() == next.getCore() && ((forUse.getWJobs() + forUse.getRJobs()) > (next.getWJobs() + next.getRJobs()))){
 					forUse = next;
 				}
+			}
+		}
+		for (Server s : servers){
+			next = s;
+			if ((forUse.getWJobs() + forUse.getRJobs() > 3) && forUse.getWJobs() + forUse.getRJobs() > next.getWJobs() + next.getRJobs() && forUse.getCore() == next.getCore()){
+				forUse = next;
 			}
 		}
 		send("OK");
