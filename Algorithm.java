@@ -62,7 +62,7 @@ public class Algorithm {
 				forUse = s;
 			} else {
 				next = s;
-				if (forUse.getCore() >= next.getCore() && (forUse.getWJobs() + forUse.getRJobs() > next.getWJobs() + next.getRJobs())){
+				if ((forUse.getCore() > next.getCore()) || forUse.getCore() == next.getCore() && ((forUse.getWJobs() + forUse.getRJobs()) > (next.getWJobs() + next.getRJobs()))){
 					forUse = next;
 				}
 			}
