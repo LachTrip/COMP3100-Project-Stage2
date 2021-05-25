@@ -76,7 +76,7 @@ public class Algorithm {
 				forUse = s;
 			} else {
 				next = s;
-				if (forUse.getCore() > next.getCore()){
+				if (forUse.getCore() >= next.getCore()){
 					forUse = next;
 				}
 			}
