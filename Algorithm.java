@@ -41,7 +41,7 @@ public class Algorithm {
 		return forUse;
 	}
 
-	public Server allToSmallest(Job job) throws IOException{
+	public Server myAlg(Job job) throws IOException{
 		
 		send("GETS Capable " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
 		int serverNum = Integer.parseInt(reader.nextEntry());
@@ -62,7 +62,7 @@ public class Algorithm {
 				forUse = s;
 			} else {
 				next = s;
-				if (forUse.getCore() >= next.getCore() && forUse.getWJobs() > next.getWJobs()){
+				if (forUse.getCore() >= next.getCore() && (forUse.getWJobs() + forUse.getRJobs() > next.getWJobs() + next.getRJobs())){
 					forUse = next;
 				}
 			}
@@ -71,7 +71,7 @@ public class Algorithm {
 		return forUse;
 	}
 
-	public Server myAlg(Job job) throws IOException{
+	public Server myAlgOld(Job job) throws IOException{
 		
 		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
 		int serverNum = Integer.parseInt(reader.nextEntry());
