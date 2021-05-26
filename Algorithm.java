@@ -77,14 +77,14 @@ public class Algorithm {
 
 		for (Server s : servers){
 			next = s;
-			if (!next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() < next.getCore())){
+			if (!next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
 				forUse = next;
 			}
 		}
 
 		for (Server s : servers){
 			next = s;
-			if (next.getState().equals("idle") && (!forUse.getState().equals("idle") || forUse.getCore() > next.getCore())){
+			if (next.getState().equals("idle") && (!forUse.getState().equals("idle") || forUse.getCore() < next.getCore())){
 				forUse = next;
 			}
 		}
