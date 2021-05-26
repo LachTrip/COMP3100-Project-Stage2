@@ -84,7 +84,7 @@ public class Algorithm {
 
 		for (Server s : servers){
 			next = s;
-			if (next.getState().equals("idle") && (!forUse.getState().equals("idle") || forUse.getCore() < next.getCore())){
+			if (next.getState().equals("idle") && (!forUse.getState().equals("idle") || forUse.getCore() >= next.getCore())){
 				forUse = next;
 			}
 		}
