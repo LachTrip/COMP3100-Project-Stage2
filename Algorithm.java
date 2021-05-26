@@ -9,10 +9,6 @@ public class Algorithm {
 	private void send(String msg) throws IOException{
 		MyClient.send(msg);
 	}
-
-	private void debug(String msg){
-		MyClient.debug(msg);
-	}
 	
 	public Server allToLargest() throws IOException{
 		send("GETS All");
@@ -78,20 +74,6 @@ public class Algorithm {
 				forUse = next;
 			}
 		}
-
-
-		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
-		serverNum = Integer.parseInt(reader.nextEntry());
-		send("OK");
-		servers = new ArrayList<Server>();
-		for (int i = 0; i < serverNum; i++){
-			Server server = new Server(reader);
-			servers.add(server);
-			if(i != serverNum - 1){
-				reader.nextLine();
-			}
-		}
-		send("OK");
 
 		for (Server s : servers){
 			next = s;

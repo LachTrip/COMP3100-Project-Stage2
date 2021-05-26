@@ -35,9 +35,9 @@ public class MyClient {
 	// format and send message to ds-server
 	public static void send(String message) throws IOException {
 		dout.write((message + "\n").getBytes());
-		System.out.println("SENT " + message);
+		// System.out.println("SENT " + message);
 		reader.nextLine();
-		System.out.println("RCVD " + reader.getLine());
+		// System.out.println("RCVD " + reader.getLine());
 	}
 
 	// Handshake Protocol
