@@ -54,6 +54,7 @@ public class Algorithm {
 				reader.nextLine();
 			}
 		}
+		send("OK");
 
 		Server forUse = new Server();
 		Server next = new Server();
@@ -73,13 +74,28 @@ public class Algorithm {
 				forUse = next;
 			}
 		}
-		for (Server s : servers){
-			next = s;
-			if (!next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() <= next.getCore())){
-				forUse = next;
+
+
+		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
+		serverNum = Integer.parseInt(reader.nextEntry());
+		send("OK");
+		servers = new ArrayList<Server>();
+		for (int i = 0; i < serverNum; i++){
+			Server server = new Server(reader);
+			servers.add(server);
+			if(i != serverNum - 1){
+				reader.nextLine();
 			}
 		}
 		send("OK");
+
+		for (Server s : servers){
+			next = s;
+			if (!next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
+				forUse = next;
+			}
+		}
+
 		return forUse;
 	}
 
