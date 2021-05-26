@@ -9,6 +9,10 @@ public class Algorithm {
 	private void send(String msg) throws IOException{
 		MyClient.send(msg);
 	}
+
+	private void debug(String msg){
+		MyClient.debug(msg);
+	}
 	
 	public Server allToLargest() throws IOException{
 		send("GETS All");
