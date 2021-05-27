@@ -68,7 +68,11 @@ public class MyClient {
 	public static void doJobn() throws IOException{
 		Job job = new Job(reader);
 		Algorithm a = new Algorithm();
-		Server forUse = a.myAlgOld(job);
-		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
+		Server forUse = a.myAlg(job);
+		if(forUse.getState().equals("empty")){
+			send("PSHJ");
+		} else {
+			send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
+		}	
 	}
 }
