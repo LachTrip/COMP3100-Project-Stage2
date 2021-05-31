@@ -105,6 +105,7 @@ public class Algorithm {
 		serverNum = Integer.parseInt(reader.nextEntry());
 		send("OK");
 		if(serverNum > 0){
+			servers = new ArrayList<Server>();
 			for (int i = 0; i < serverNum; i++){
 				Server server = new Server(reader);
 				servers.add(server);
