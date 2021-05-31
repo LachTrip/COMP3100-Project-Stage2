@@ -61,55 +61,17 @@ public class Algorithm {
 			}
 		}
 
-		Server bestOfSmall = forUse;
-		
-		//find next smallest server type
-		for (Server s : servers){
-			next = s;
-			if(bestOfSmall.getType() != next.getType()){
-				for(Server t : allServers()){
-					for(Server u : allServers()){
-						if(forUse.getType()==t.getType() && next.getType() == u.getType()){
-							if (t.getCore() > u.getCore()){
-								forUse = next;
-							}
-						}
-					}
-					
+		if (forUse.getWJobs() > 1){
+			for (Server s : servers){
+				next = s;
+				if (forUse.getWJobs() > next.getWJobs()){
+					forUse = next;
 				}
-			}
+			}			
 		}
-
-		//find server (of next smallest type) with least number of incomplete jobs
-		for (Server s : servers){
-			next = s;
-			if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
-				forUse = next;
-			}
-		}	
-
-		if (bestOfSmall.getWJobs() < 1 || bestOfSmall.getWJobs() < forUse.getWJobs()){
-			forUse = bestOfSmall;
-		}
-
-		// if (forUse.getWJobs() > 1){
-				// 	for (Server s : servers){
-				// 		next = s;
-				// 		if (forUse.getWJobs() > next.getWJobs()){
-				// 			forUse = next;
-				// 		}
-				// 	}			
-				// }
-
-				
+	
 		return forUse;
 	}
-
-	
-	
-	
-	
-	
 	
 	// This one gets full marks but not great TT
 	public Server myAlgOld(Job job) throws IOException{
