@@ -63,7 +63,7 @@ public class Algorithm {
 		}
 		
 
-		if (forUse.getWJobs() > 3){
+		if (forUse.getWJobs() > 0){
 			for (Server s : servers){
 				next = s;
 				if (forUse.getWJobs() > next.getWJobs()){
