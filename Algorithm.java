@@ -37,9 +37,13 @@ public class Algorithm {
 			}
 			send("OK");
 			for (Server s : servers){
-				next = s;
-				if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
-					forUse = next;
+				if (forUse.getType().equals("empty")){
+					forUse = s;
+				} else {
+					next = s;
+					if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
+						forUse = next;
+					}
 				}
 			}
 		} else {
@@ -58,9 +62,7 @@ public class Algorithm {
 
 		//find smallest capable server type
 		for (Server s : servers){
-			if (forUse.getType().equals("empty")){
-				forUse = s;
-			} else {
+			
 				next = s;
 				for(Server t : allServers()){
 					for(Server u : allServers()){
@@ -72,7 +74,7 @@ public class Algorithm {
 					}
 					
 				}
-			}
+			
 		}
 
 		//find server (of smallest capable type) with least number of incomplete jobs
