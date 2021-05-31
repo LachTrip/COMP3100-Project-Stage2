@@ -10,8 +10,6 @@ public class MyClient {
 	static Socket s;
 	static Reader reader;
 
-	static List<Server> allServers = new ArrayList<Server>();
-
 	public static void debug(String msg){
 		System.out.println(msg);
 	}
@@ -48,11 +46,6 @@ public class MyClient {
 	// choose what to do based on response from server
 	public static void nextEvent() throws IOException {
 		send("REDY");
-		
-		if(allServers.size() == 0){
-			getServers();
-		}
-		
 		if (reader.says("JOBN")){
 			doJobn();
 		} else if (reader.says("NONE")){
@@ -63,23 +56,32 @@ public class MyClient {
 	// recieved JOBN from server
 	public static void doJobn() throws IOException{
 		Job job = new Job(reader);
-		Algorithm a = new Algorithm();
-		Server forUse = a.myAlg(job);
-		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
-	}
+		Server next = new Server();
+		int serverNum;
 
-	// get initial server information
-	public static void getServers() throws IOException{
-		send("GETS All");
-		int serverNum = Integer.parseInt(reader.nextEntry());
+		//get information on capable servers
+		send("GETS Capable " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
+		serverNum = Integer.parseInt(reader.nextEntry());
 		send("OK");
-		for (int i = 0; i < serverNum; i++){
+		List<Server> servers = new ArrayList<Server>();
+			for (int i = 0; i < serverNum; i++){
 			Server server = new Server(reader);
-			allServers.add(server);
+			servers.add(server);
 			if(i != serverNum - 1){
 				reader.nextLine();
 			}
 		}
 		send("OK");
+
+		//find server with least amount of waiting jobs (defaults to smallest server)
+		Server forUse = servers.get(0);
+		for (Server s : servers){
+			next = s;
+			if (forUse.getWJobs() > next.getWJobs()){
+				forUse = next;
+			}
+		}
+
+		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
 	}
 }
