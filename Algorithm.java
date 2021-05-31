@@ -35,32 +35,32 @@ public class Algorithm {
 		}
 		send("OK");
 
-		//find smallest capable server type
-		for (Server s : servers){
-			if (forUse.getType().equals("empty")){
-				forUse = s;
-			} else {
-				next = s;
-				for(Server t : allServers()){
-					for(Server u : allServers()){
-						if(forUse.getType()==t.getType() && next.getType() == u.getType()){
-							if (t.getCore() > u.getCore()){
-								forUse = next;
-							}
-						}
-					}
+		// //find smallest capable server type
+		// for (Server s : servers){
+		// 	if (forUse.getType().equals("empty")){
+		// 		forUse = s;
+		// 	} else {
+		// 		next = s;
+		// 		for(Server t : allServers()){
+		// 			for(Server u : allServers()){
+		// 				if(forUse.getType()==t.getType() && next.getType() == u.getType()){
+		// 					if (t.getCore() > u.getCore()){
+		// 						forUse = next;
+		// 					}
+		// 				}
+		// 			}
 					
-				}
-			}
-		}
+		// 		}
+		// 	}
+		// }
 
-		//find server (of smallest capable type) with least number of incomplete jobs
-		for (Server s : servers){
-			next = s;
-			if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
-				forUse = next;
-			}
-		}
+		// //find server (of smallest capable type) with least number of incomplete jobs
+		// for (Server s : servers){
+		// 	next = s;
+		// 	if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
+		// 		forUse = next;
+		// 	}
+		// }
 		
 
 		if (forUse.getWJobs() > 0){
