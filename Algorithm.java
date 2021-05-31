@@ -23,46 +23,6 @@ public class Algorithm {
 
 		
 
-		// Server bestOfSmall = forUse;
-		
-		// //find next smallest server type
-		// for (Server s : servers){
-		// 	next = s;
-		// 	if(bestOfSmall.getType() != next.getType()){
-		// 		for(Server t : allServers()){
-		// 			for(Server u : allServers()){
-		// 				if(forUse.getType()==t.getType() && next.getType() == u.getType()){
-		// 					if (t.getCore() > u.getCore()){
-		// 						forUse = next;
-		// 					}
-		// 				}
-		// 			}
-					
-		// 		}
-		// 	}
-		// }
-
-		// //find server (of next smallest type) with least number of incomplete jobs
-		// for (Server s : servers){
-		// 	next = s;
-		// 	if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
-		// 		forUse = next;
-		// 	}
-		// }	
-
-		// if (bestOfSmall.getWJobs() < 1 || bestOfSmall.getWJobs() < forUse.getWJobs()){
-		// 	forUse = bestOfSmall;
-		// }
-
-		if (forUse.getWJobs() > 1){
-			for (Server s : servers){
-				next = s;
-				if (forUse.getWJobs() > next.getWJobs()){
-					forUse = next;
-				}
-			}			
-		}
-
 		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
 		serverNum = Integer.parseInt(reader.nextEntry());
 		send("OK");
@@ -121,6 +81,46 @@ public class Algorithm {
 			if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
 				forUse = next;
 			}
+		}
+
+		// Server bestOfSmall = forUse;
+		
+		// //find next smallest server type
+		// for (Server s : servers){
+		// 	next = s;
+		// 	if(bestOfSmall.getType() != next.getType()){
+		// 		for(Server t : allServers()){
+		// 			for(Server u : allServers()){
+		// 				if(forUse.getType()==t.getType() && next.getType() == u.getType()){
+		// 					if (t.getCore() > u.getCore()){
+		// 						forUse = next;
+		// 					}
+		// 				}
+		// 			}
+					
+		// 		}
+		// 	}
+		// }
+
+		// //find server (of next smallest type) with least number of incomplete jobs
+		// for (Server s : servers){
+		// 	next = s;
+		// 	if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
+		// 		forUse = next;
+		// 	}
+		// }	
+
+		// if (bestOfSmall.getWJobs() < 1 || bestOfSmall.getWJobs() < forUse.getWJobs()){
+		// 	forUse = bestOfSmall;
+		// }
+
+		if (forUse.getWJobs() > 1){
+			for (Server s : servers){
+				next = s;
+				if (forUse.getWJobs() > next.getWJobs()){
+					forUse = next;
+				}
+			}			
 		}
 		}
 
