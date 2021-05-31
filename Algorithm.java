@@ -55,23 +55,20 @@ public class Algorithm {
 		}
 
 		//find server (of smallest capable type) with least number of incomplete jobs
+		// for (Server s : servers){
+		// 	next = s;
+		// 	if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
+		// 		forUse = next;
+		// 	}
+		// }
+
+
 		for (Server s : servers){
 			next = s;
-			if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
+			if (forUse.getWJobs() > next.getWJobs()){
 				forUse = next;
 			}
-		}
-		
-
-		// if (forUse.getWJobs() > 0){
-			for (Server s : servers){
-				next = s;
-				if (forUse.getWJobs() > next.getWJobs()){
-					forUse = next;
-				}
-			}			
-		// }
-	
+		}			
 		return forUse;
 	}
 }
