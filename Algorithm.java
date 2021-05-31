@@ -42,7 +42,7 @@ public class Algorithm {
 		}
 		for (Server s : servers){
 			next = s;
-			if (forUse.getWJobs() > 4 && forUse.getWJobs() > next.getWJobs() ){
+			if (forUse.getWJobs() > 2 && forUse.getWJobs() > next.getWJobs() ){
 				forUse = next;
 			}
 		}
