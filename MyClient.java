@@ -9,8 +9,6 @@ public class MyClient {
 	static DataOutputStream dout;
 	static Socket s;
 	static Reader reader;
-	
-	static List<Server> allServers = new ArrayList<Server>();
 
 	public static void debug(String msg){
 		System.out.println(msg);
@@ -70,28 +68,8 @@ public class MyClient {
 	public static void doJobn() throws IOException{
 		
 		Job job = new Job(reader);
-		
-		// get list of servers if not done already
-		if(allServers.size() == 0){
-			send("GETS All");
-			int serverNum = Integer.parseInt(reader.nextEntry());
-			send("OK");
-			for (int i = 0; i < serverNum; i++){
-				Server server = new Server(reader);
-				allServers.add(server);
-				if(i != serverNum - 1){
-					reader.nextLine();
-				}
-			}
-			send("OK");
-		}
-
 		Algorithm a = new Algorithm();
 		Server forUse = a.myAlg(job);
-		if(forUse.getState().equals("empty")){
-			send("PSHJ");
-		} else {
-			send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
-		}	
+		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
 	}
 }

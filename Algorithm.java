@@ -42,7 +42,7 @@ public class Algorithm {
 		}
 		for (Server s : servers){
 			next = s;
-			if (forUse.getWJobs() > 2 && forUse.getWJobs() > next.getWJobs() ){
+			if (forUse.getWJobs() > 3 && forUse.getWJobs() > next.getWJobs() ){
 				forUse = next;
 			}
 		}
@@ -62,13 +62,11 @@ public class Algorithm {
 			send("OK");
 			for (Server s : servers){
 				next = s;
-				if (next.getWJobs() == 0 && (forUse.getState().equals("inactive") || forUse.getCore() < next.getCore())){
+				if (next.getWJobs() == 0 && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
 					forUse = next;
 				}
 			}
 		}
-
-		// if(forUse.)
 
 		return forUse;
 	}
