@@ -7,6 +7,7 @@ public class Job {
     private int memory;
     private int disk;
 
+    // initialize job with information from ds-server
     public Job(Reader reader){
         submitTime = Integer.parseInt(reader.nextEntry());
         ID = Integer.parseInt(reader.nextEntry());
@@ -15,6 +16,8 @@ public class Job {
         memory = Integer.parseInt(reader.nextEntry());
         disk = Integer.parseInt(reader.nextEntry());
     }
+
+    //getters
 
     public int getSubmitTime(){
         return submitTime;

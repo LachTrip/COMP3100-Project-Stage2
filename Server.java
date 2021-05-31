@@ -12,6 +12,7 @@ public class Server {
     private int waitingJobs;
     private int runningJobs;
 
+    // initialize empty server
     public Server(){
         type = "empty";
         ID = -1;
@@ -22,6 +23,7 @@ public class Server {
         disk = -1;
     }
 
+    // initialize server with information from ds-server
     public Server(Reader reader) throws IOException{
         type = reader.getCurrent();
         ID = Integer.parseInt(reader.nextEntry());
@@ -33,6 +35,8 @@ public class Server {
         waitingJobs = Integer.parseInt(reader.nextEntry());
         runningJobs = Integer.parseInt(reader.nextEntry());
     }
+
+    //getters
 
     public String getType(){
         return type;
