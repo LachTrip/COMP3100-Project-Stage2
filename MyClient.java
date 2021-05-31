@@ -87,7 +87,7 @@ public class MyClient {
 		}
 
 		Algorithm a = new Algorithm();
-		Server forUse = a.myAlg(job);
+		Server forUse = a.myAlgOld(job);
 		if(forUse.getState().equals("empty")){
 			send("PSHJ");
 		} else {
