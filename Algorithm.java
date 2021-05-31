@@ -21,6 +21,7 @@ public class Algorithm {
 		Server next = new Server();
 		int serverNum;
 
+		//get information on capable servers
 		send("GETS Capable " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
 		serverNum = Integer.parseInt(reader.nextEntry());
 		send("OK");
@@ -60,8 +61,9 @@ public class Algorithm {
 				forUse = next;
 			}
 		}
+		
 
-		if (forUse.getWJobs() > 1){
+		if (forUse.getWJobs() > 3){
 			for (Server s : servers){
 				next = s;
 				if (forUse.getWJobs() > next.getWJobs()){
@@ -70,49 +72,6 @@ public class Algorithm {
 			}			
 		}
 	
-		return forUse;
-	}
-	
-	// This one gets full marks but not great TT
-	public Server myAlgOld(Job job) throws IOException{
-		
-		send("GETS Capable " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
-		int serverNum = Integer.parseInt(reader.nextEntry());
-		send("OK");
-		List<Server> servers = new ArrayList<Server>();
-		for (int i = 0; i < serverNum; i++){
-			Server server = new Server(reader);
-			servers.add(server);
-			if(i != serverNum - 1){
-				reader.nextLine();
-			}
-		}
-
-		Server forUse = new Server();
-		Server next = new Server();
-		for (Server s : servers){
-			if (forUse.getType().equals("empty")){
-				forUse = s;
-			} else {
-				next = s;
-				if (forUse.getCore() > next.getCore()){
-					forUse = next;
-				}
-			}
-		}
-		for (Server s : servers){
-			next = s;
-			if (forUse.getWJobs() + forUse.getRJobs() > 4 && forUse.getWJobs() + forUse.getRJobs() > next.getWJobs() + next.getRJobs()){
-				forUse = next;
-			}
-		}
-		for (Server s : servers){
-			next = s;
-			if (next.getState().equals("idle") && (!forUse.getState().equals("idle") || forUse.getCore() >= next.getCore())){
-				forUse = next;
-			}
-		}
-		send("OK");
 		return forUse;
 	}
 }

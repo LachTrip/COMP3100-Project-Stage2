@@ -64,10 +64,11 @@ public class MyClient {
 	public static void doJobn() throws IOException{
 		Job job = new Job(reader);
 		Algorithm a = new Algorithm();
-		Server forUse = a.myAlgOld(job);
+		Server forUse = a.myAlg(job);
 		send("SCHD " + job.getID() + " " + forUse.getType() + " " + forUse.getID());
 	}
 
+	// get initial server information
 	public static void getServers() throws IOException{
 		send("GETS All");
 		int serverNum = Integer.parseInt(reader.nextEntry());
