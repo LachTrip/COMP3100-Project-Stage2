@@ -10,6 +10,10 @@ public class Algorithm {
 		MyClient.send(msg);
 	}
 
+	private List<Server> allServers(){
+		return MyClient.allServers;
+	}
+
 	public Server myAlg(Job job) throws IOException{
 		
 		List<Server> servers = new ArrayList<Server>();
@@ -30,23 +34,63 @@ public class Algorithm {
 		}
 		send("OK");
 
+		//find smallest capable server type
 		for (Server s : servers){
 			if (forUse.getType().equals("empty")){
 				forUse = s;
 			} else {
 				next = s;
-				if (forUse.getCore() > next.getCore()){
-					forUse = next;
+				for(Server t : allServers()){
+					for(Server u : allServers()){
+						if(forUse.getType()==t.getType() && next.getType() == u.getType()){
+							if (t.getCore() > u.getCore()){
+								forUse = next;
+							}
+						}
+					}
+					
 				}
 			}
 		}
+
+		//find server (of smallest capable type) with least number of incomplete jobs
 		for (Server s : servers){
 			next = s;
-			if (forUse.getWJobs() > 4 && forUse.getWJobs() > next.getWJobs() ){
+			if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
 				forUse = next;
 			}
 		}
 
+		Server bestOfSmall = forUse;
+		
+		//find next smallest server type
+		for (Server s : servers){
+			next = s;
+			if(bestOfSmall.getType() != next.getType()){
+				for(Server t : allServers()){
+					for(Server u : allServers()){
+						if(forUse.getType()==t.getType() && next.getType() == u.getType()){
+							if (t.getCore() > u.getCore()){
+								forUse = next;
+							}
+						}
+					}
+					
+				}
+			}
+		}
+
+		//find server (of next smallest type) with least number of incomplete jobs
+		for (Server s : servers){
+			next = s;
+			if (forUse.getType() == next.getType() && forUse.getRJobs() + forUse.getWJobs() > next.getRJobs() + next.getWJobs()){
+				forUse = next;
+			}
+		}	
+
+		if (bestOfSmall.getWJobs() < 2 || bestOfSmall.getWJobs() < forUse.getWJobs()){
+			forUse = bestOfSmall;
+		}
 
 		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
 		serverNum = Integer.parseInt(reader.nextEntry());
@@ -62,7 +106,7 @@ public class Algorithm {
 			send("OK");
 			for (Server s : servers){
 				next = s;
-				if (next.getWJobs() == 0 && !next.getState().equals("inactive") &&(forUse.getState().equals("inactive") || forUse.getCore() < next.getCore())){
+				if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getWJobs() > 2 || forUse.getState().equals("inactive"))){
 					forUse = next;
 				}
 			}
