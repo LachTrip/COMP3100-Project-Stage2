@@ -92,35 +92,35 @@ public class Algorithm {
 		// 	forUse = bestOfSmall;
 		// }
 
-		// if (forUse.getWJobs() > 1){
-		// 	for (Server s : servers){
-		// 		next = s;
-		// 		if (forUse.getWJobs() > next.getWJobs()){
-		// 			forUse = next;
-		// 		}
-		// 	}			
-		// }
+				// if (forUse.getWJobs() > 1){
+				// 	for (Server s : servers){
+				// 		next = s;
+				// 		if (forUse.getWJobs() > next.getWJobs()){
+				// 			forUse = next;
+				// 		}
+				// 	}			
+				// }
 
-		// send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
-		// serverNum = Integer.parseInt(reader.nextEntry());
-		// send("OK");
-		// if(serverNum > 0){
-		// 	servers = new ArrayList<Server>();
-		// 	for (int i = 0; i < serverNum; i++){
-		// 		Server server = new Server(reader);
-		// 		servers.add(server);
-		// 		if(i != serverNum - 1){
-		// 			reader.nextLine();
-		// 		}
-		// 	}
-		// 	send("OK");
-		// 	for (Server s : servers){
-		// 		next = s;
-		// 		if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
-		// 			forUse = next;
-		// 		}
-		// 	}
-		// }
+		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
+		serverNum = Integer.parseInt(reader.nextEntry());
+		send("OK");
+		if(serverNum > 0){
+			servers = new ArrayList<Server>();
+			for (int i = 0; i < serverNum; i++){
+				Server server = new Server(reader);
+				servers.add(server);
+				if(i != serverNum - 1){
+					reader.nextLine();
+				}
+			}
+			send("OK");
+			for (Server s : servers){
+				next = s;
+				if (next.getWJobs() == 0 && (!next.getState().equals("inactive") || forUse.getWJobs() > 1) && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
+					forUse = next;
+				}
+			}
+		}
 
 		return forUse;
 	}
