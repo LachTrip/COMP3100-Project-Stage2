@@ -1,14 +1,16 @@
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-// import java.util.ArrayList;
-// import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyClient {
 
 	static DataOutputStream dout;
 	static Socket s;
 	static Reader reader;
+	
+	static List<Server> allServers = new ArrayList<Server>();
 
 	public static void debug(String msg){
 		System.out.println(msg);
@@ -66,7 +68,24 @@ public class MyClient {
 
 	// recieved JOBN from server
 	public static void doJobn() throws IOException{
+		
 		Job job = new Job(reader);
+		
+		// get list of servers if not done already
+		if(allServers.size() == 0){
+			send("GETS All");
+			int serverNum = Integer.parseInt(reader.nextEntry());
+			send("OK");
+			for (int i = 0; i < serverNum; i++){
+				Server server = new Server(reader);
+				allServers.add(server);
+				if(i != serverNum - 1){
+					reader.nextLine();
+				}
+			}
+			send("OK");
+		}
+
 		Algorithm a = new Algorithm();
 		Server forUse = a.myAlg(job);
 		if(forUse.getState().equals("empty")){
