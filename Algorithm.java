@@ -116,7 +116,7 @@ public class Algorithm {
 			send("OK");
 			for (Server s : servers){
 				next = s;
-				if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getWJobs() > 1 || forUse.getState().equals("inactive"))){
+				if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
 					forUse = next;
 				}
 			}
