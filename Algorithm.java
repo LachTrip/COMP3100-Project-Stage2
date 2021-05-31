@@ -88,8 +88,17 @@ public class Algorithm {
 			}
 		}	
 
-		if (bestOfSmall.getWJobs() < 2 || bestOfSmall.getWJobs() < forUse.getWJobs()){
+		if (bestOfSmall.getWJobs() < 1 || bestOfSmall.getWJobs() < forUse.getWJobs()){
 			forUse = bestOfSmall;
+		}
+
+		if (forUse.getWJobs() > 1){
+			for (Server s : servers){
+				next = s;
+				if (forUse.getWJobs() > next.getWJobs()){
+					forUse = next;
+				}
+			}			
 		}
 
 		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
@@ -106,7 +115,7 @@ public class Algorithm {
 			send("OK");
 			for (Server s : servers){
 				next = s;
-				if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getWJobs() > 2 || forUse.getState().equals("inactive"))){
+				if (next.getWJobs() == 0 && !next.getState().equals("inactive") && (forUse.getWJobs() > 1 || forUse.getState().equals("inactive"))){
 					forUse = next;
 				}
 			}
