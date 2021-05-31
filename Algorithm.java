@@ -40,13 +40,13 @@ public class Algorithm {
 				}
 			}
 		}
-
 		for (Server s : servers){
 			next = s;
-			if ((forUse.getWJobs() + forUse.getRJobs() > 2) && forUse.getWJobs() + forUse.getRJobs() > next.getWJobs() + next.getRJobs()){
+			if (forUse.getWJobs() > 4 && forUse.getWJobs() > next.getWJobs() ){
 				forUse = next;
 			}
 		}
+
 
 		send("GETS Avail " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
 		serverNum = Integer.parseInt(reader.nextEntry());
@@ -68,9 +68,18 @@ public class Algorithm {
 			}
 		}
 
+		// if(forUse.)
+
 		return forUse;
 	}
 
+	
+	
+	
+	
+	
+	
+	// This one gets full marks but not great TT
 	public Server myAlgOld(Job job) throws IOException{
 		
 		send("GETS Capable " + job.getCore() + " " + job.getMemory() + " " + job.getDisk());
