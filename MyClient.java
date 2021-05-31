@@ -1,8 +1,6 @@
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MyClient {
 
@@ -20,7 +18,6 @@ public class MyClient {
 			dout = new DataOutputStream(s.getOutputStream());
 			reader = new Reader(s);
 			handshake();
-			// System.out.println("# Handshake successful");
 			while(!reader.says("QUIT")){
 				nextEvent();
 			}
@@ -35,9 +32,7 @@ public class MyClient {
 	// format and send message to ds-server
 	public static void send(String message) throws IOException {
 		dout.write((message + "\n").getBytes());
-		// System.out.println("SENT " + message);
 		reader.nextLine();
-		// System.out.println("RCVD " + reader.getLine());
 	}
 
 	// Handshake Protocol
@@ -51,14 +46,6 @@ public class MyClient {
 		send("REDY");
 		if (reader.says("JOBN")){
 			doJobn();
-		} else if (reader.says("JOBP")){
-			// TODO
-		} else if (reader.says("JCPL")){
-			// TODO
-		} else if (reader.says("RESF")){
-			// TODO
-		} else if (reader.says("RESR")){
-			// TODO
 		} else if (reader.says("NONE")){
 			send("QUIT");
 		}
@@ -66,7 +53,6 @@ public class MyClient {
 
 	// recieved JOBN from server
 	public static void doJobn() throws IOException{
-		
 		Job job = new Job(reader);
 		Algorithm a = new Algorithm();
 		Server forUse = a.myAlg(job);

@@ -62,7 +62,7 @@ public class Algorithm {
 			send("OK");
 			for (Server s : servers){
 				next = s;
-				if (next.getWJobs() == 0 && (forUse.getState().equals("inactive") || forUse.getCore() > next.getCore())){
+				if (next.getWJobs() == 0 && !next.getState().equals("inactive") &&(forUse.getState().equals("inactive") || forUse.getCore() < next.getCore())){
 					forUse = next;
 				}
 			}
